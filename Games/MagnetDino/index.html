@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>Magnet Dino</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #unity-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+    }
+      #unity-canvas {
+      aspect-ratio: 960 / 600;
+      width: fit-content;
+      height: fit-content;
+      max-width: 100%;
+      max-height: 100%;
+      background: #231F20;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+<div id="unity-container">
+  <canvas id="unity-canvas" tabindex="-1"></canvas>
+</div>
+
+<script>
+  var canvas = document.querySelector("#unity-canvas");
+
+  var buildUrl = "Build";
+  var loaderUrl = buildUrl + "/Melon_build.loader.js";
+  var config = {
+    dataUrl: buildUrl + "/Melon_build.data.br",
+    frameworkUrl: buildUrl + "/Melon_build.framework.js.br",
+    codeUrl: buildUrl + "/Melon_build.wasm.br",
+    streamingAssetsUrl: "StreamingAssets",
+    companyName: "DefaultCompany",
+    productName: "Melon_Jam",
+    productVersion: "1.0",
+  };
+
+  if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+    var meta = document.createElement('meta');
+    meta.name = 'viewport';
+    meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+    document.head.appendChild(meta);
+  }
+
+  var script = document.createElement("script");
+  script.src = loaderUrl;
+  script.onload = () => {
+    createUnityInstance(canvas, config).catch((message) => {
+      alert(message);
+    });
+  };
+  document.body.appendChild(script);
+</script>
+</body>
+</html>

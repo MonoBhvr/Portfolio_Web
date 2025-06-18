@@ -1,0 +1,24 @@
+[
+    {
+        "index": 0,
+        "name": "Magnet Dino",
+        "description": "자석 공룡과 모험하는 게임!",
+        "Path": "./Games/MagnetDino/index.html",
+        "imagePath": "./Games/MagnetDino/logo.png"
+    }
+    ,
+    {
+        "index": 1,
+        "name": "Der Krudders",
+        "description": "동굴 로프 액션 게임!",
+        "Path": "./Games/DerKrudders/index.html",
+        "imagePath": "./Games/DerKrudders/logo.png"
+    },
+    {
+        "index": 2,
+        "name": "Reverse Realm",
+        "description": "시간을 역행하는 퍼즐 게임!",
+        "Path": "./Games/Reverse/index.html",
+        "imagePath": "./Games/Reverse/logo.png"
+    }
+]

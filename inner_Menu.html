@@ -137,7 +137,8 @@
         .gradient-background {
             width: 100%;
             height: 786px;
-            background: linear-gradient(180deg, white 53%, #F5F5F5 100%);
+            object-fit: cover;
+            object-position: 0 40%;
         }
 
         .content-box {
@@ -161,19 +162,21 @@
             </div>
         </div>
         <div class="main-content">
-            <div class="gradient-background"></div>
+            <img class="gradient-background" src = ''>
             <div class="side-button left">◀</div>
             <div class="side-button right">▶</div>
         </div>
     </div>
 </div>
 <script>
+
+    let currentIndex = 0; // 현재 이미지 인덱스
     document.querySelector('.side-button.left').addEventListener('click', function () {
-        alert('Left button clicked!');
+        move(-1);
     });
 
     document.querySelector('.side-button.right').addEventListener('click', function () {
-        alert('Right button clicked!');
+        move(1)
     });
 
     document.querySelector('.wii-menu').addEventListener('click', function () {
@@ -186,10 +189,58 @@
         }
     });
 
+    document.querySelector('.start').addEventListener('click', function () {
+        Open_Game();
+    });
+
     function sendMousePosition(event) {
         const mousePosition = { x: event.clientX, y: event.clientY };
         window.parent.postMessage(mousePosition, '*');
     }
+    function Set_Img(index_) {
+        currentIndex = index_; // 현재 인덱스 업데이트
+        fetch('Game_data.json')
+            .then(response => response.json())
+            .then(data => {
+                const imagePath = data[index_]?.imagePath; // imagePath 키의 이미지 경로 가져오기
+                if (imagePath) {
+                    const gradientBackground = document.querySelector('.gradient-background');
+                    gradientBackground.src = imagePath; // URL 설정
+                } else {
+                    console.error('이미지를 찾을 수 없습니다.');
+                }
+            })
+            .catch(error => console.error('JSON 데이터를 불러오는 중 오류 발생:', error));
+    }
+
+    function move(dir)
+    {
+        fetch('Game_data.json')
+            .then(response => response.json())
+            .then(data => {
+                const totalImages = data.length; // 전체 이미지 개수
+                currentIndex = (currentIndex + dir) % totalImages; // 방향에 따라 인덱스 업데이트
+                Set_Img(currentIndex); // 이미지 업데이트
+            })
+            .catch(error => console.error('JSON 데이터를 불러오는 중 오류 발생:', error));
+    }
+
+    function Open_Game()
+    {
+        //index에 맞게 게임 페이지로 이동
+        fetch('Game_data.json')
+            .then(response => response.json())
+            .then(data => {
+                const gameUrl = data[currentIndex]?.Path; // gameUrl 키의 게임 URL 가져오기
+                if (gameUrl) {
+                    window.top.location.href = gameUrl; // 게임 페이지로 이동
+                } else {
+                    console.error('게임 URL을 찾을 수 없습니다.');
+                }
+            })
+            .catch(error => console.error('JSON 데이터를 불러오는 중 오류 발생:', error));
+    }
+
 </script>
 </body>
 </html>
