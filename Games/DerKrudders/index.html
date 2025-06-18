@@ -5,15 +5,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Der Krudders</title>
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            background-color: black;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        user-select: none; /* 텍스트 선택 방지 */
+      }
         #unity-container {
             display: flex;
             justify-content: center;
@@ -42,6 +42,7 @@
   <canvas id="unity-canvas" tabindex="-1" style="z-index: 1;"></canvas>
     <script src="Build/comtuse_build.loader.js"></script>
     <script>
+      document.addEventListener("contextmenu", (event) => event.preventDefault());
       const loadingText = document.getElementById("loading-text");
       let loadingDots = 0;
       setInterval(() => {

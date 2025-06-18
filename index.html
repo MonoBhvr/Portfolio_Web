@@ -29,8 +29,8 @@
             user-select: none; /* 텍스트 선택 방지 */
         }
         .wii-container {
-            width: fit-content;
-            height: fit-content;
+            width: 100vw; /* 화면 너비에 맞춤 */
+            height: auto; /* 높이는 비율에 따라 자동 조정 */
             aspect-ratio: 16 / 9; /* 비율 유지 */
             max-width: 100vw; /* 화면 너비 초과 방지 */
             max-height: 100vh; /* 화면 높이 초과 방지 */
@@ -39,7 +39,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
+            justify-content: center; /* 세로 중앙 정렬 추가 */
+            position: absolute; /* 위치를 절대값으로 설정 */
+            top: 50%; /* 세로 중앙 정렬 */
+            left: 50%; /* 가로 중앙 정렬 */
+            transform: translate(-50%, -50%); /* 중앙 정렬 보정 */
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             border: 10px solid #ccc; /* 테두리 추가 */
             box-sizing: border-box; /* 테두리 중심 기준으로 내부 확장 */
@@ -98,8 +102,8 @@
         }
 
         .tile:hover {
-            transform: scale(1.02);
-            border: 8px solid #69b3cd;
+            transform: scale(1.01);
+            border: 6px solid #69b3cd;
             transition: transform 0.3s ease;
             cursor: none;
         }
@@ -339,6 +343,7 @@
             while (index < totalTiles) {
                 const inactiveTile = document.createElement('div');
                 inactiveTile.className = 'tileinactive';
+                inactiveTile.innerHTML = `<span style="color: #898989; font-weight: bold;">MonoB</span>`;
                 grid.appendChild(inactiveTile);
                 index++;
             }

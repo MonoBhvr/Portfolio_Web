@@ -8,11 +8,11 @@
       margin: 0;
       padding: 0;
       background-color: black;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
+      user-select: none; /* 텍스트 선택 방지 */
     }
-
     #unity-container {
       display: flex;
       justify-content: center;
@@ -42,6 +42,7 @@
 </div>
 
 <script>
+  document.addEventListener("contextmenu", (event) => event.preventDefault());
   const loadingText = document.getElementById("loading-text");
   let loadingDots = 0;
   setInterval(() => {

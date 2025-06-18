@@ -86,15 +86,23 @@
             background: #C9C9C1;
             overflow: hidden;
         }
-
         .menu-bar {
             width: 100%;
             height: 286px;
             position: relative;
             border-top: 2px solid #E1E1E1;
+            background-image: repeating-linear-gradient(
+                    to bottom,
+                    #d3d3d3 0px,
+                    #d3d3d3 4px,
+                    #cacaca 4px,
+                    #cacaca 8px
+            );
             display: flex;
             justify-content: space-around;
             align-items: center;
+            border-top-left-radius: 50% 5%; /* 윗면 좌측 볼록하게 */
+            border-top-right-radius: 50% 5%; /* 윗면 우측 볼록하게 */
         }
 
         .menu-item {
@@ -219,7 +227,9 @@
             .then(response => response.json())
             .then(data => {
                 const totalImages = data.length; // 전체 이미지 개수
-                currentIndex = (currentIndex + dir) % totalImages; // 방향에 따라 인덱스 업데이트
+                currentIndex = currentIndex + dir;
+                currentIndex += currentIndex < 0 ? totalImages : 0; // 음수 인덱스 처리
+                currentIndex %= totalImages; // 인덱스가 범위를 벗어나지 않도록 조정
                 Set_Img(currentIndex); // 이미지 업데이트
             })
             .catch(error => console.error('JSON 데이터를 불러오는 중 오류 발생:', error));
