@@ -5,6 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Der Krudders</title>
     <style>
+      @font-face {
+        font-family: 'GmarketSansMedium';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+      }
       html, body {
         margin: 0;
         padding: 0;
@@ -38,7 +44,7 @@
     </style>
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-  <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; color: white;" id="loading-text">Loading</div>
+  <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; color: white;font-family: GmarketSansMedium, Arial, sans-serif;" id="loading-text"; >Loading</div>
   <canvas id="unity-canvas" tabindex="-1" style="z-index: 1;"></canvas>
     <script src="Build/comtuse_build.loader.js"></script>
     <script>

@@ -4,6 +4,12 @@
   <meta charset="utf-8">
   <title>Magnet Dino</title>
   <style>
+    @font-face {
+      font-family: 'GmarketSansMedium';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
     html, body {
       margin: 0;
       padding: 0;
@@ -37,7 +43,7 @@
 </head>
 <body>
 <div id="unity-container">
-  <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; color: white;" id="loading-text">Loading</div>
+  <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; color: white;font-family: GmarketSansMedium, Arial, sans-serif;" id="loading-text">Loading</div>
   <canvas id="unity-canvas" tabindex="-1" style="z-index: 1;"></canvas>
 </div>
 
