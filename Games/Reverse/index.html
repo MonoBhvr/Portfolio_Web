@@ -21,7 +21,7 @@
       height: 100vh;
       background-color: black;
     }
-    
+
     #unity-canvas {
       aspect-ratio: 960 / 600;
       width: fit-content;
@@ -38,10 +38,18 @@
 </head>
 <body>
 <div id="unity-container">
-  <canvas id="unity-canvas" tabindex="-1"></canvas>
+  <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; color: white;" id="loading-text">Loading</div>
+  <canvas id="unity-canvas" tabindex="-1" style="z-index: 1;"></canvas>
 </div>
 
 <script>
+  const loadingText = document.getElementById("loading-text");
+  let loadingDots = 0;
+  setInterval(() => {
+    loadingDots = (loadingDots + 1) % 4;
+    loadingText.textContent = "Loading" + ".".repeat(loadingDots);
+  }, 500);
+
   const canvas = document.querySelector("#unity-canvas");
 
   const buildUrl = "Build";
@@ -66,9 +74,16 @@
   const script = document.createElement("script");
   script.src = loaderUrl;
   script.onload = () => {
-    createUnityInstance(canvas, config).catch((message) => {
-      alert(message);
-    });
+    createUnityInstance(canvas, config)
+            .then(() => {
+              const loadingText = document.getElementById("loading-text");
+              if (loadingText) {
+                loadingText.remove();
+              }
+            })
+            .catch((message) => {
+              alert(message);
+            });
   };
   document.body.appendChild(script);
 </script>
