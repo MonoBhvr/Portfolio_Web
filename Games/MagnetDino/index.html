@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Unity Web Player | Melon_Jam</title>
+
+  <link rel="shortcut icon" href="TemplateData/favicon.ico" />
+
+  <style>
+    @font-face {
+      font-family: 'GmarketSansMedium';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+      format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      user-select: none;
+    }
+    #unity-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100vw;
+      height: 100vh;
+      background-color: black;
+      position: relative;
+    }
+    #unity-canvas {
+      aspect-ratio: 960 / 600;
+      width: fit-content;
+      height: fit-content;
+      max-width: 100%;
+      max-height: 100%;
+      background: #231f20;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+    #loading-text {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      color: white;
+      font-family: 'GmarketSansMedium', Arial, sans-serif;
+    }
+    /* 원래 unity-loading-bar, unity-warning, unity-footer는 숨김 처리 */
+    #unity-loading-bar,
+    #unity-warning,
+    #unity-footer {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+<div id="unity-container" class="unity-desktop">
+  <div id="loading-text">Loading</div>
+  <canvas id="unity-canvas" width="1920" height="1080" tabindex="-1"></canvas>
+</div>
+
+<script>
+  document.addEventListener('contextmenu', (event) => event.preventDefault());
+
+  const loadingText = document.getElementById('loading-text');
+  let loadingDots = 0;
+  setInterval(() => {
+    loadingDots = (loadingDots + 1) % 4;
+    loadingText.textContent = 'Loading' + '.'.repeat(loadingDots);
+  }, 500);
+
+  var canvas = document.querySelector('#unity-canvas');
+
+  function unityShowBanner(msg, type) {
+    // 원래 경고 배너는 사용하지 않음 (숨김 처리)
+  }
+
+  var buildUrl = 'Build';
+  var loaderUrl = buildUrl + '/MagnetDino.loader.js';
+  var config = {
+    arguments: [],
+    dataUrl: buildUrl + '/MagnetDino.data',
+    frameworkUrl: buildUrl + '/MagnetDino.framework.js',
+    codeUrl: buildUrl + '/MagnetDino.wasm',
+    streamingAssetsUrl: 'StreamingAssets',
+    companyName: 'DefaultCompany',
+    productName: 'Melon_Jam',
+    productVersion: '1.0',
+    showBanner: unityShowBanner,
+  };
+
+  if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+    var meta = document.createElement('meta');
+    meta.name = 'viewport';
+    meta.content =
+            'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+    document.getElementsByTagName('head')[0].appendChild(meta);
+    document.querySelector('#unity-container').className = 'unity-mobile';
+    canvas.className = 'unity-mobile';
+  }
+
+  var script = document.createElement('script');
+  script.src = loaderUrl;
+  script.onload = () => {
+    createUnityInstance(canvas, config, (progress) => {
+      // 로딩 프로그레스 텍스트 변경 (필요하면 적용 가능)
+      // loadingText.textContent = 'Loading ' + Math.round(progress * 100) + '%';
+    })
+            .then((unityInstance) => {
+              if (loadingText) loadingText.remove();
+              // 전체 화면 버튼을 사용할 경우 여기 추가 가능
+            })
+            .catch((message) => {
+              alert(message);
+            });
+  };
+
+  document.body.appendChild(script);
+</script>
+</body>
+</html>
