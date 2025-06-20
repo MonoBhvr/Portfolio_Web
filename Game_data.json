@@ -20,5 +20,19 @@
         "description": "시간을 역행하는 퍼즐 게임!",
         "Path": "./Games/Reverse/index.html",
         "imagePath": "./Games/Reverse/logo.png"
+    },
+    {
+        "index": 3,
+        "name": "Mehen",
+        "description": "우주 정거장을 수리하는 게임!",
+        "Path": "./Games/Mehen/index.html",
+        "imagePath": "./Games/Mehen/logo.png"
+    },
+    {
+        "index": 4,
+        "name": "Tesseract",
+        "description": "4차원 퍼즐 게임!",
+        "Path": "./Games/4D/index.html",
+        "imagePath": "./Games/4D/logo.png"
     }
 ]
